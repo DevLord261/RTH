@@ -5,11 +5,15 @@ import { useState } from "react";
 export default function Home() {
   const [output, setOutput] = useState("");
 
+  //these are the commands that i used to do the stuff
   const commands = {
     help: () =>
       "Available commands: help, hash <wordlist> ,crack <hash>, clear",
     greet: (name = "user") => `Hello, ${name}!`,
     clear: () => setOutput(""),
+
+    // hash command which take args the apache_user.txt pass to the backend which is "/api/readfile" to hash the wordlist
+    // and write it to new file called hashed.txt
     hash: async (wordlist?: string) => {
       if (!wordlist) wordlist = "apache_user.txt";
       try {
@@ -22,8 +26,10 @@ export default function Home() {
         return [];
       }
     },
+
+    // crack command which take a hash string and search the new file hashed.txt for any equal hashes and return the word correspond to it
     crack: async (hash: string) => {
-      if (!hash) return "false input";
+      if (!hash) return "empty input";
       try {
         const res = await fetch(`api/crack?hash=${hash}`);
         if (!res) throw new Error("Failed to fetch");
@@ -38,6 +44,8 @@ export default function Home() {
     },
   };
 
+  //just simple input text but when i trigger enter it takes the input split it and check if it exists in commands list
+  // and if it exists run the command to trigger what it does
   const handleCommand = async (e) => {
     if (e.key === "Enter") {
       const input = e.target.value.trim();

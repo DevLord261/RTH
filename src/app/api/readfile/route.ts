@@ -3,16 +3,18 @@ import { promises as fs } from "fs";
 import path from "path";
 import { SHA256 } from "crypto-js";
 
+// the algo to hash a password using the crypto-js library
 function hashingpassword(password: string): string {
   return SHA256(password).toString();
 }
 
 // Hashing a wordlist passed by user
 export async function GET(request: NextRequest) {
-  //taking the filename from the url which = to file
+  //taking the filename from the url which = to "/api/readfile?file<file>"
   const { searchParams } = new URL(request.url);
   const filename = searchParams.get("file");
 
+  // if file doesnt exists return not found
   if (!filename) {
     return new Response("failed to find file", {
       status: 200,
@@ -21,7 +23,9 @@ export async function GET(request: NextRequest) {
       },
     });
   }
+
   const filePath = path.join(process.cwd(), "data", filename);
+
   if (!filePath) {
     return new Response("failed to find file", {
       status: 200,
