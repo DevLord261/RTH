@@ -1,26 +1,65 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Background video */
+#bgVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    object-fit: cover;
+}
+body,
+html {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+}
+/* Container that holds the video and console UI */
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevents overflow of content when the video is full-screen */
+    margin-top: 8%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Console UI */
+#console {
+    position: relative;
+    color: lime;
+    font-family: monospace;
+    padding: 20px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); /* Optional dark overlay */
+    overflow-y: auto;
+    height: 600px;
+    width: 900px;
+}
+.test {
+    display: flex;
+    flex-direction: row;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+#output {
+    white-space: pre-line;
+    margin-bottom: 10px;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+#commandInput,
+#begin {
+    width: 100%;
+    background: transparent;
+    color: lime;
+    border: none;
+    outline: none;
+    font-family: monospace;
+    /* font-size: 16px; */
+}
+#begin {
+    width: 90px;
 }
